@@ -53,6 +53,10 @@
       align-items: center;
     }
 
+    label {
+      font-size: 0.9rem;
+    }
+
     select, button {
       font-size: 0.95rem;
       padding: 6px 10px;
@@ -127,35 +131,7 @@
 
     .bad-cell {
       background: #fee2e2;
-    }
-
-    .feedback {
-      font-size: 0.85rem;
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px dashed #e5e7eb;
-    }
-
-    .buttons-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 10px;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-    }
-
-    .summary {
-      margin-top: 10px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      text-align: center;
-    }
-
-    .muted {
-      color: #6b7280;
-      font-size: 0.85rem;
-      text-align: center;
-      margin-top: 8px;
+      font-weight: bold;
     }
 
     .row-result {
@@ -171,6 +147,41 @@
     .row-result.bad {
       color: #b91c1c;
     }
+
+    .summary {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-align: center;
+      min-height: 2em;
+    }
+
+    .muted {
+      color: #6b7280;
+      font-size: 0.85rem;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .choco-msg {
+      display: inline-block;
+      margin-top: 4px;
+      color: #b91c1c;
+      font-weight: 700;
+      animation: bounce 0.9s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      30% {
+        transform: translateY(-6px);
+      }
+      60% {
+        transform: translateY(3px);
+      }
+    }
   </style>
 </head>
 <body>
@@ -178,7 +189,7 @@
     <div class="card">
       <h1>Verbos irregulares A2</h1>
       <div class="subtitle">
-        Una columna se muestra como pista. Completa las demás para cada fila y corrige al final.
+        Una columna se muestra como pista. Completa las demás para cada fila.
       </div>
 
       <div class="controls">
@@ -190,6 +201,15 @@
             <option value="20">20</option>
           </select>
         </label>
+
+        <label>
+          Modo:
+          <select id="modeSelect">
+            <option value="normal" selected>Normal</option>
+            <option value="laura">Laura</option>
+          </select>
+        </label>
+
         <button id="startBtn">Empezar</button>
         <button id="checkBtn" disabled>Corregir todo</button>
       </div>
@@ -202,100 +222,115 @@
       <table class="table">
         <thead>
           <tr>
-            <th>PRESENT</th>
-            <th>PAST SIMPLE</th>
-            <th>PAST PARTICIPLE</th>
-            <th>TRANSLATE</th>
+            <th data-hcol="0">PRESENT</th>
+            <th data-hcol="1">PAST SIMPLE</th>
+            <th data-hcol="2">PAST PARTICIPLE</th>
+            <th data-hcol="3">TRANSLATE</th>
             <th>Resultado</th>
           </tr>
         </thead>
-        <tbody id="questionsBody">
-          <!-- Las filas se generan por JavaScript -->
-        </tbody>
+        <tbody id="questionsBody"></tbody>
       </table>
 
-      <div id="feedback" class="feedback">
-        Pulsa <b>Empezar</b> para generar las preguntas.
-      </div>
       <div id="summary" class="summary"></div>
       <div class="muted">
-        Truco: en traducciones con dos significados (ej. <b>ser / estar</b>) basta con poner uno, o los dos.
+        Truco: si la traducción tiene dos significados («ser / estar»), basta con poner uno.
       </div>
     </div>
   </div>
 
   <script>
     const verbs = [
-      { present: "be",       pastSimple: "was / were", pastParticiple: "been",    translate: "ser / estar" },
-      { present: "become",   pastSimple: "became",     pastParticiple: "become",  translate: "convertirse / volverse" },
-      { present: "begin",    pastSimple: "began",      pastParticiple: "begun",   translate: "empezar" },
-      { present: "break",    pastSimple: "broke",      pastParticiple: "broken",  translate: "romper" },
-      { present: "bring",    pastSimple: "brought",    pastParticiple: "brought", translate: "traer" },
-      { present: "build",    pastSimple: "built",      pastParticiple: "built",   translate: "construir" },
-      { present: "buy",      pastSimple: "bought",     pastParticiple: "bought",  translate: "comprar" },
-      { present: "can",      pastSimple: "could",      pastParticiple: "—",       translate: "poder" },
-      { present: "catch",    pastSimple: "caught",     pastParticiple: "caught",  translate: "atrapar" },
-      { present: "choose",   pastSimple: "chose",      pastParticiple: "chosen",  translate: "elegir" },
-      { present: "come",     pastSimple: "came",       pastParticiple: "come",    translate: "venir" },
-      { present: "cost",     pastSimple: "cost",       pastParticiple: "cost",    translate: "costar" },
-      { present: "cut",      pastSimple: "cut",        pastParticiple: "cut",     translate: "cortar" },
-      { present: "do",       pastSimple: "did",        pastParticiple: "done",    translate: "hacer" },
-      { present: "dream",    pastSimple: "dreamt",     pastParticiple: "dreamt",  translate: "soñar" },
-      { present: "drink",    pastSimple: "drank",      pastParticiple: "drunk",   translate: "beber" },
-      { present: "drive",    pastSimple: "drove",      pastParticiple: "driven",  translate: "conducir" },
-      { present: "eat",      pastSimple: "ate",        pastParticiple: "eaten",   translate: "comer" },
-      { present: "fall",     pastSimple: "fell",       pastParticiple: "fallen",  translate: "caer" },
-      { present: "feel",     pastSimple: "felt",       pastParticiple: "felt",    translate: "sentir" },
-      { present: "find",     pastSimple: "found",      pastParticiple: "found",   translate: "encontrar" },
-      { present: "fly",      pastSimple: "flew",       pastParticiple: "flown",   translate: "volar" },
-      { present: "forget",   pastSimple: "forgot",     pastParticiple: "forgotten", translate: "olvidar" },
-      { present: "get",      pastSimple: "got",        pastParticiple: "got",     translate: "conseguir / obtener" },
-      { present: "give",     pastSimple: "gave",       pastParticiple: "given",   translate: "dar" },
-      { present: "go",       pastSimple: "went",       pastParticiple: "gone",    translate: "ir" },
-      { present: "grow",     pastSimple: "grew",       pastParticiple: "grown",   translate: "crecer" },
-      { present: "have",     pastSimple: "had",        pastParticiple: "had",     translate: "tener" },
-      { present: "hit",      pastSimple: "hit",        pastParticiple: "hit",     translate: "golpear" },
-      { present: "keep",     pastSimple: "kept",       pastParticiple: "kept",    translate: "mantener / conservar" },
-      { present: "know",     pastSimple: "knew",       pastParticiple: "known",   translate: "saber / conocer" },
-      { present: "lay",      pastSimple: "laid",       pastParticiple: "laid",    translate: "colocar / poner" },
-      { present: "learn",    pastSimple: "learnt",     pastParticiple: "learnt",  translate: "aprender" },
-      { present: "leave",    pastSimple: "left",       pastParticiple: "left",    translate: "irse / dejar" },
-      { present: "lend",     pastSimple: "lent",       pastParticiple: "lent",    translate: "prestar" },
-      { present: "lose",     pastSimple: "lost",       pastParticiple: "lost",    translate: "perder" },
-      { present: "make",     pastSimple: "made",       pastParticiple: "made",    translate: "hacer / fabricar" },
-      { present: "meet",     pastSimple: "met",        pastParticiple: "met",     translate: "conocer / encontrarse" },
-      { present: "pay",      pastSimple: "paid",       pastParticiple: "paid",    translate: "pagar" },
-      { present: "put",      pastSimple: "put",        pastParticiple: "put",     translate: "poner" },
-      { present: "read",     pastSimple: "read",       pastParticiple: "read",    translate: "leer" },
-      { present: "ring",     pastSimple: "rang",       pastParticiple: "rung",    translate: "sonar / llamar" },
-      { present: "run",      pastSimple: "ran",        pastParticiple: "run",     translate: "correr" },
-      { present: "say",      pastSimple: "said",       pastParticiple: "said",    translate: "decir" },
-      { present: "see",      pastSimple: "saw",        pastParticiple: "seen",    translate: "ver" },
-      { present: "sell",     pastSimple: "sold",       pastParticiple: "sold",    translate: "vender" },
-      { present: "send",     pastSimple: "sent",       pastParticiple: "sent",    translate: "enviar" },
-      { present: "shut",     pastSimple: "shut",       pastParticiple: "shut",    translate: "cerrar" },
-      { present: "sing",     pastSimple: "sang",       pastParticiple: "sung",    translate: "cantar" },
-      { present: "sit",      pastSimple: "sat",        pastParticiple: "sat",     translate: "sentarse" },
-      { present: "sleep",    pastSimple: "slept",      pastParticiple: "slept",   translate: "dormir" },
-      { present: "speak",    pastSimple: "spoke",      pastParticiple: "spoken",  translate: "hablar" },
-      { present: "spend",    pastSimple: "spent",      pastParticiple: "spent",   translate: "gastar / pasar" },
-      { present: "stand",    pastSimple: "stood",      pastParticiple: "stood",   translate: "estar de pie" },
-      { present: "steal",    pastSimple: "stole",      pastParticiple: "stolen",  translate: "robar" },
-      { present: "swim",     pastSimple: "swam",       pastParticiple: "swum",    translate: "nadar" },
-      { present: "take",     pastSimple: "took",       pastParticiple: "taken",   translate: "tomar / llevar" },
-      { present: "teach",    pastSimple: "taught",     pastParticiple: "taught",  translate: "enseñar" },
-      { present: "tell",     pastSimple: "told",       pastParticiple: "told",    translate: "decir / contar" },
-      { present: "think",    pastSimple: "thought",    pastParticiple: "thought", translate: "pensar" },
-      { present: "throw",    pastSimple: "threw",      pastParticiple: "thrown",  translate: "lanzar / tirar" },
+      { present: "be", pastSimple: "was / were", pastParticiple: "been", translate: "ser / estar" },
+      { present: "become", pastSimple: "became", pastParticiple: "become", translate: "convertirse / volverse" },
+      { present: "begin", pastSimple: "began", pastParticiple: "begun", translate: "empezar" },
+      { present: "break", pastSimple: "broke", pastParticiple: "broken", translate: "romper" },
+      { present: "bring", pastSimple: "brought", pastParticiple: "brought", translate: "traer" },
+      { present: "build", pastSimple: "built", pastParticiple: "built", translate: "construir" },
+      { present: "buy", pastSimple: "bought", pastParticiple: "bought", translate: "comprar" },
+      { present: "can", pastSimple: "could", pastParticiple: "—", translate: "poder" },
+      { present: "catch", pastSimple: "caught", pastParticiple: "caught", translate: "atrapar" },
+      { present: "choose", pastSimple: "chose", pastParticiple: "chosen", translate: "elegir" },
+      { present: "come", pastSimple: "came", pastParticiple: "come", translate: "venir" },
+      { present: "cost", pastSimple: "cost", pastParticiple: "cost", translate: "costar" },
+      { present: "cut", pastSimple: "cut", pastParticiple: "cut", translate: "cortar" },
+      { present: "do", pastSimple: "did", pastParticiple: "done", translate: "hacer" },
+      { present: "dream", pastSimple: "dreamt", pastParticiple: "dreamt", translate: "soñar" },
+      { present: "drink", pastSimple: "drank", pastParticiple: "drunk", translate: "beber" },
+      { present: "drive", pastSimple: "drove", pastParticiple: "driven", translate: "conducir" },
+      { present: "eat", pastSimple: "ate", pastParticiple: "eaten", translate: "comer" },
+      { present: "fall", pastSimple: "fell", pastParticiple: "fallen", translate: "caer" },
+      { present: "feel", pastSimple: "felt", pastParticiple: "felt", translate: "sentir" },
+      { present: "find", pastSimple: "found", pastParticiple: "found", translate: "encontrar" },
+      { present: "fly", pastSimple: "flew", pastParticiple: "flown", translate: "volar" },
+      { present: "forget", pastSimple: "forgot", pastParticiple: "forgotten", translate: "olvidar" },
+      { present: "get", pastSimple: "got", pastParticiple: "got", translate: "conseguir / obtener" },
+      { present: "give", pastSimple: "gave", pastParticiple: "given", translate: "dar" },
+      { present: "go", pastSimple: "went", pastParticiple: "gone", translate: "ir" },
+      { present: "grow", pastSimple: "grew", pastParticiple: "grown", translate: "crecer" },
+      { present: "have", pastSimple: "had", pastParticiple: "had", translate: "tener" },
+      { present: "hit", pastSimple: "hit", pastParticiple: "hit", translate: "golpear" },
+      { present: "keep", pastSimple: "kept", pastParticiple: "kept", translate: "mantener / conservar" },
+      { present: "know", pastSimple: "knew", pastParticiple: "known", translate: "saber / conocer" },
+      { present: "lay", pastSimple: "laid", pastParticiple: "laid", translate: "colocar / poner" },
+      { present: "learn", pastSimple: "learnt", pastParticiple: "learnt", translate: "aprender" },
+      { present: "leave", pastSimple: "left", pastParticiple: "left", translate: "irse / dejar" },
+      { present: "lend", pastSimple: "lent", pastParticiple: "lent", translate: "prestar" },
+      { present: "lose", pastSimple: "lost", pastParticiple: "lost", translate: "perder" },
+      { present: "make", pastSimple: "made", pastParticiple: "made", translate: "hacer / fabricar" },
+      { present: "meet", pastSimple: "met", pastParticiple: "met", translate: "conocer / encontrarse" },
+      { present: "pay", pastSimple: "paid", pastParticiple: "paid", translate: "pagar" },
+      { present: "put", pastSimple: "put", pastParticiple: "put", translate: "poner" },
+      { present: "read", pastSimple: "read", pastParticiple: "read", translate: "leer" },
+      { present: "ring", pastSimple: "rang", pastParticiple: "rung", translate: "sonar / llamar" },
+      { present: "run", pastSimple: "ran", pastParticiple: "run", translate: "correr" },
+      { present: "say", pastSimple: "said", pastParticiple: "said", translate: "decir" },
+      { present: "see", pastSimple: "saw", pastParticiple: "seen", translate: "ver" },
+      { present: "sell", pastSimple: "sold", pastParticiple: "sold", translate: "vender" },
+      { present: "send", pastSimple: "sent", pastParticiple: "sent", translate: "enviar" },
+      { present: "shut", pastSimple: "shut", pastParticiple: "shut", translate: "cerrar" },
+      { present: "sing", pastSimple: "sang", pastParticiple: "sung", translate: "cantar" },
+      { present: "sit", pastSimple: "sat", pastParticiple: "sat", translate: "sentarse" },
+      { present: "sleep", pastSimple: "slept", pastParticiple: "slept", translate: "dormir" },
+      { present: "speak", pastSimple: "spoke", pastParticiple: "spoken", translate: "hablar" },
+      { present: "spend", pastSimple: "spent", pastParticiple: "spent", translate: "gastar / pasar" },
+      { present: "stand", pastSimple: "stood", pastParticiple: "stood", translate: "estar de pie" },
+      { present: "steal", pastSimple: "stole", pastParticiple: "stolen", translate: "robar" },
+      { present: "swim", pastSimple: "swam", pastParticiple: "swum", translate: "nadar" },
+      { present: "take", pastSimple: "took", pastParticiple: "taken", translate: "tomar / llevar" },
+      { present: "teach", pastSimple: "taught", pastParticiple: "taught", translate: "enseñar" },
+      { present: "tell", pastSimple: "told", pastParticiple: "told", translate: "decir / contar" },
+      { present: "think", pastSimple: "thought", pastParticiple: "thought", translate: "pensar" },
+      { present: "throw", pastSimple: "threw", pastParticiple: "thrown", translate: "lanzar / tirar" },
       { present: "understand", pastSimple: "understood", pastParticiple: "understood", translate: "entender" },
-      { present: "wake",     pastSimple: "woke",       pastParticiple: "woken",   translate: "despertar" },
-      { present: "wear",     pastSimple: "wore",       pastParticiple: "worn",    translate: "llevar puesto / vestir" },
-      { present: "win",      pastSimple: "won",        pastParticiple: "won",     translate: "ganar" },
-      { present: "write",    pastSimple: "wrote",      pastParticiple: "written", translate: "escribir" }
+      { present: "wake", pastSimple: "woke", pastParticiple: "woken", translate: "despertar" },
+      { present: "wear", pastSimple: "wore", pastParticiple: "worn", translate: "llevar puesto / vestir" },
+      { present: "win", pastSimple: "won", pastParticiple: "won", translate: "ganar" },
+      { present: "write", pastSimple: "wrote", pastParticiple: "written", translate: "escribir" }
     ];
 
-    function shuffle(array) {
-      const arr = array.slice();
+    const COLS = ["present", "pastSimple", "pastParticiple", "translate"];
+    const HEADERS = ["PRESENT", "PAST SIMPLE", "PAST PARTICIPLE", "TRANSLATE"];
+    const ORDER_NORMAL = [0, 1, 2, 3];
+
+    const tbody = document.getElementById("questionsBody");
+    const startBtn = document.getElementById("startBtn");
+    const checkBtn = document.getElementById("checkBtn");
+    const qInfo = document.getElementById("qInfo");
+    const scoreInfo = document.getElementById("scoreInfo");
+    const summaryDiv = document.getElementById("summary");
+    const numQuestionsSelect = document.getElementById("numQuestions");
+    const modeSelect = document.getElementById("modeSelect");
+    const headerCells = document.querySelectorAll("thead tr th");
+
+    let questions = [];
+    let rowStats = [];
+    let totalCorrect = 0;
+    let totalPossible = 0;
+    let currentOrder = ORDER_NORMAL;
+
+    function shuffle(arr) {
+      arr = arr.slice();
       for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -304,10 +339,9 @@
     }
 
     function normalize(str) {
-      return str
-        .toLowerCase()
+      return str.toLowerCase()
         .trim()
-        .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // quita tildes
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
         .replace(/\s+/g, " ")
         .replace(" / ", "/");
     }
@@ -317,86 +351,73 @@
       let normUser = normalize(user);
       normUser = normUser.replace(/\s*y\s*/g, "/").replace(/,/g, "/");
 
-      const correctParts = normCorrect.split("/").map(p => p.trim()).filter(Boolean);
-      const userParts = normUser.split("/").map(p => p.trim()).filter(Boolean);
+      const correctParts = normCorrect.split("/").map(x => x.trim());
+      const userParts = normUser.split("/").map(x => x.trim());
 
-      for (const up of userParts) {
-        for (const cp of correctParts) {
-          if (up === cp) return true;
-        }
+      for (const u of userParts) {
+        if (correctParts.includes(u)) return true;
       }
       return false;
     }
 
-    const numQuestionsSelect = document.getElementById("numQuestions");
-    const startBtn = document.getElementById("startBtn");
-    const checkBtn = document.getElementById("checkBtn");
-    const qInfo = document.getElementById("qInfo");
-    const scoreInfo = document.getElementById("scoreInfo");
-    const feedbackDiv = document.getElementById("feedback");
-    const summaryDiv = document.getElementById("summary");
-    const tbody = document.getElementById("questionsBody");
-
-    const COL_PRESENT = 0;
-    const COL_PAST_SIMPLE = 1;
-    const COL_PAST_PARTICIPLE = 2;
-    const COL_TRANSLATE = 3;
-    const propByCol = ["present", "pastSimple", "pastParticiple", "translate"];
-
-    let questions = []; // {verb, shownCol}
-    let rowStats = [];  // {correct, possible, td}
-    let totalCorrect = 0;
-    let totalPossible = 0;
+    function updateHeadersForOrder() {
+      currentOrder.forEach((origIndex, displayIndex) => {
+        headerCells[displayIndex].textContent = HEADERS[origIndex];
+      });
+    }
 
     function startQuiz() {
       const n = parseInt(numQuestionsSelect.value, 10);
-      const selected = shuffle(verbs).slice(0, n);
+      const picked = shuffle(verbs).slice(0, n);
 
-      questions = selected.map(v => ({
+      const mode = modeSelect.value;
+
+      if (mode === "laura") {
+        currentOrder = shuffle([0, 1, 2, 3]);   // orden aleatorio
+      } else {
+        currentOrder = ORDER_NORMAL;           // orden normal
+      }
+
+      updateHeadersForOrder();
+
+      questions = picked.map(v => ({
         verb: v,
         shownCol: Math.floor(Math.random() * 4)
       }));
 
+      tbody.innerHTML = "";
       rowStats = questions.map(() => ({ correct: 0, possible: 0, td: null }));
       totalCorrect = 0;
       totalPossible = 0;
 
-      scoreInfo.textContent = "Puntuación: 0 / 0";
-      summaryDiv.textContent = "";
-      feedbackDiv.textContent = "Escribe tus respuestas y pulsa «Corregir todo» para ver los aciertos.";
-      qInfo.textContent = `Total de preguntas: ${questions.length}`;
-
-      // Limpiar tabla
-      tbody.innerHTML = "";
-
       questions.forEach((q, index) => {
-        const tr = document.createElement("tr");
         const v = q.verb;
+        const tr = document.createElement("tr");
 
-        for (let col = 0; col < 4; col++) {
+        currentOrder.forEach(origIndex => {
           const td = document.createElement("td");
-          const prop = propByCol[col];
-          const value = v[prop];
+          const prop = COLS[origIndex];
+          const val = v[prop];
 
-          if (col === q.shownCol || (col === COL_PAST_PARTICIPLE && value === "—")) {
-            // Se muestra como pista o no aplica
-            td.textContent = value;
-            if (col === q.shownCol) {
-              td.classList.add("shown-cell");
-            }
+          const isShown = (origIndex === q.shownCol);
+          const isNoApplies = (prop === "pastParticiple" && val === "—");
+
+          if (isShown || isNoApplies) {
+            td.textContent = val;
+            if (isShown) td.classList.add("shown-cell");
           } else {
-            const input = document.createElement("input");
-            input.type = "text";
-            input.setAttribute("data-qindex", index);
-            input.setAttribute("data-col", col);
-            td.appendChild(input);
+            const inp = document.createElement("input");
+            inp.type = "text";
+            inp.dataset.index = index;
+            inp.dataset.col = prop;
+            td.appendChild(inp);
           }
 
           tr.appendChild(td);
-        }
+        });
 
         const resultTd = document.createElement("td");
-        resultTd.className = "row-result";
+        resultTd.classList.add("row-result");
         resultTd.textContent = "—";
         tr.appendChild(resultTd);
         rowStats[index].td = resultTd;
@@ -404,52 +425,56 @@
         tbody.appendChild(tr);
       });
 
+      qInfo.textContent = `Preguntas totales: ${questions.length}`;
       checkBtn.disabled = false;
+      summaryDiv.innerHTML = "";
+      scoreInfo.textContent = "Puntuación: 0 / 0";
     }
 
     function correctAll() {
-      if (questions.length === 0) return;
-
       totalCorrect = 0;
       totalPossible = 0;
-      rowStats.forEach(stat => { stat.correct = 0; stat.possible = 0; if (stat.td) { stat.td.textContent = "—"; stat.td.classList.remove("ok", "bad"); } });
 
-      // Quitar colores anteriores
       tbody.querySelectorAll("td").forEach(td => {
         td.classList.remove("ok-cell", "bad-cell");
       });
+      rowStats.forEach(stat => {
+        if (stat.td) {
+          stat.td.textContent = "—";
+          stat.td.classList.remove("ok", "bad");
+        }
+        stat.correct = 0;
+        stat.possible = 0;
+      });
 
-      const inputs = tbody.querySelectorAll("input[data-qindex]");
-      inputs.forEach(input => {
-        const qIndex = parseInt(input.getAttribute("data-qindex"), 10);
-        const col = parseInt(input.getAttribute("data-col"), 10);
-        const q = questions[qIndex].verb;
-        const prop = propByCol[col];
+      tbody.querySelectorAll("input").forEach(input => {
+        const row = parseInt(input.dataset.index);
+        const prop = input.dataset.col;
+        const q = questions[row].verb;
         const correctVal = q[prop];
-        const userVal = input.value || "";
-        const td = input.parentElement;
+        const userVal = input.value.trim();
+        const cell = input.parentElement;
 
-        let isCorrect = false;
-
+        let ok;
         if (prop === "translate") {
-          isCorrect = isTranslationCorrect(userVal, correctVal);
+          ok = isTranslationCorrect(userVal, correctVal);
         } else {
-          isCorrect = (normalize(userVal) === normalize(correctVal));
+          ok = normalize(userVal) === normalize(correctVal);
         }
 
         totalPossible++;
-        rowStats[qIndex].possible++;
+        rowStats[row].possible++;
 
-        if (isCorrect) {
+        if (ok) {
+          rowStats[row].correct++;
           totalCorrect++;
-          rowStats[qIndex].correct++;
-          td.classList.add("ok-cell");
+          cell.classList.add("ok-cell");
         } else {
-          td.classList.add("bad-cell");
+          cell.classList.add("bad-cell");
+          cell.innerHTML = `<span style="color:#b91c1c;font-weight:bold">${correctVal}</span>`;
         }
       });
 
-      // Resultado por fila
       rowStats.forEach(stat => {
         if (!stat.td) return;
         if (stat.possible === 0) {
@@ -457,21 +482,29 @@
           return;
         }
         stat.td.textContent = `${stat.correct}/${stat.possible}`;
-        if (stat.correct === stat.possible) {
-          stat.td.classList.add("ok");
-        } else {
-          stat.td.classList.add("bad");
-        }
+        stat.td.classList.add(stat.correct === stat.possible ? "ok" : "bad");
       });
 
-      const pct = totalPossible > 0 ? ((totalCorrect * 100) / totalPossible).toFixed(1) : "0.0";
-      scoreInfo.textContent = `Puntuación: ${totalCorrect} / ${totalPossible} (${pct} %)`;
-      summaryDiv.textContent = pct >= 80
-        ? "¡Muy bien! 💪 Buen dominio de estos verbos."
-        : "Sigue practicando, verás cómo sube la puntuación. 😊";
+      let pct = 0;
+      if (totalPossible > 0) {
+        pct = ((totalCorrect / totalPossible) * 100);
+      }
+      const pctText = pct.toFixed(1);
+
+      scoreInfo.textContent = `Puntuación: ${totalCorrect} / ${totalPossible} (${pctText}%)`;
+
+      if (pct === 100) {
+        summaryDiv.innerHTML = `
+          🎉 ¡Perfecto! 100% ✅<br>
+          <span class="choco-msg">Pide a la profesora Laura tu chocolatina.</span>
+        `;
+      } else if (pct >= 80) {
+        summaryDiv.textContent = "¡Muy bien! 💪 Buen dominio de estos verbos.";
+      } else {
+        summaryDiv.textContent = "Sigue practicando, ¡lo harás mejor! 😊";
+      }
 
       checkBtn.disabled = true;
-      feedbackDiv.textContent = "Revisa los colores de la tabla: verde = correcto, rojo = incorrecto. Pulsa «Empezar» para nuevo ejercicio.";
     }
 
     startBtn.addEventListener("click", startQuiz);
