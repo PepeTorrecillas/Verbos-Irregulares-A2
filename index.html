@@ -20,7 +20,7 @@
 
     .app {
       width: 100%;
-      max-width: 600px;
+      max-width: 800px;
       padding: 16px;
     }
 
@@ -50,6 +50,7 @@
       gap: 8px;
       margin-bottom: 12px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     select, button {
@@ -120,25 +121,19 @@
       font-weight: 600;
     }
 
+    .ok-cell {
+      background: #dcfce7;
+    }
+
+    .bad-cell {
+      background: #fee2e2;
+    }
+
     .feedback {
       font-size: 0.85rem;
       margin-top: 8px;
       padding-top: 8px;
       border-top: 1px dashed #e5e7eb;
-    }
-
-    .feedback-line {
-      margin: 2px 0;
-    }
-
-    .ok {
-      color: #15803d;
-      font-weight: 600;
-    }
-
-    .bad {
-      color: #b91c1c;
-      font-weight: 600;
     }
 
     .buttons-row {
@@ -162,6 +157,20 @@
       text-align: center;
       margin-top: 8px;
     }
+
+    .row-result {
+      text-align: center;
+      font-weight: 600;
+      min-width: 60px;
+    }
+
+    .row-result.ok {
+      color: #15803d;
+    }
+
+    .row-result.bad {
+      color: #b91c1c;
+    }
   </style>
 </head>
 <body>
@@ -169,7 +178,7 @@
     <div class="card">
       <h1>Verbos irregulares A2</h1>
       <div class="subtitle">
-        Una columna se muestra como pista. Completa las demás y corrige antes de pasar a la siguiente.
+        Una columna se muestra como pista. Completa las demás para cada fila y corrige al final.
       </div>
 
       <div class="controls">
@@ -182,6 +191,7 @@
           </select>
         </label>
         <button id="startBtn">Empezar</button>
+        <button id="checkBtn" disabled>Corregir todo</button>
       </div>
 
       <div class="status">
@@ -196,33 +206,20 @@
             <th>PAST SIMPLE</th>
             <th>PAST PARTICIPLE</th>
             <th>TRANSLATE</th>
+            <th>Resultado</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td id="cellPresent"></td>
-            <td id="cellPastSimple"></td>
-            <td id="cellPastParticiple"></td>
-            <td id="cellTranslate"></td>
-          </tr>
-          <tr>
-            <td id="inputPresentCell"></td>
-            <td id="inputPastSimpleCell"></td>
-            <td id="inputPastParticipleCell"></td>
-            <td id="inputTranslateCell"></td>
-          </tr>
+        <tbody id="questionsBody">
+          <!-- Las filas se generan por JavaScript -->
         </tbody>
       </table>
 
-      <div class="buttons-row">
-        <button id="checkBtn" disabled>Corregir</button>
-        <button id="nextBtn" disabled>Siguiente</button>
+      <div id="feedback" class="feedback">
+        Pulsa <b>Empezar</b> para generar las preguntas.
       </div>
-
-      <div id="feedback" class="feedback"></div>
       <div id="summary" class="summary"></div>
       <div class="muted">
-        Truco: en traducción con dos significados (ej. <b>ser / estar</b>) basta con poner uno, o los dos.
+        Truco: en traducciones con dos significados (ej. <b>ser / estar</b>) basta con poner uno, o los dos.
       </div>
     </div>
   </div>
@@ -310,7 +307,7 @@
       return str
         .toLowerCase()
         .trim()
-        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // quita tildes
         .replace(/\s+/g, " ")
         .replace(" / ", "/");
     }
@@ -331,206 +328,154 @@
       return false;
     }
 
-    let questions = [];
-    let currentIndex = -1;
-    let totalCorrect = 0;
-    let totalPossible = 0;
-    let currentShownCol = 0;
-
     const numQuestionsSelect = document.getElementById("numQuestions");
     const startBtn = document.getElementById("startBtn");
     const checkBtn = document.getElementById("checkBtn");
-    const nextBtn = document.getElementById("nextBtn");
     const qInfo = document.getElementById("qInfo");
     const scoreInfo = document.getElementById("scoreInfo");
     const feedbackDiv = document.getElementById("feedback");
     const summaryDiv = document.getElementById("summary");
+    const tbody = document.getElementById("questionsBody");
 
-    const cellPresent = document.getElementById("cellPresent");
-    const cellPastSimple = document.getElementById("cellPastSimple");
-    const cellPastParticiple = document.getElementById("cellPastParticiple");
-    const cellTranslate = document.getElementById("cellTranslate");
+    const COL_PRESENT = 0;
+    const COL_PAST_SIMPLE = 1;
+    const COL_PAST_PARTICIPLE = 2;
+    const COL_TRANSLATE = 3;
+    const propByCol = ["present", "pastSimple", "pastParticiple", "translate"];
 
-    const inputPresentCell = document.getElementById("inputPresentCell");
-    const inputPastSimpleCell = document.getElementById("inputPastSimpleCell");
-    const inputPastParticipleCell = document.getElementById("inputPastParticipleCell");
-    const inputTranslateCell = document.getElementById("inputTranslateCell");
-
-    let inputPresent, inputPastSimple, inputPastParticiple, inputTranslate;
-
-    function createInput() {
-      const inp = document.createElement("input");
-      inp.type = "text";
-      return inp;
-    }
+    let questions = []; // {verb, shownCol}
+    let rowStats = [];  // {correct, possible, td}
+    let totalCorrect = 0;
+    let totalPossible = 0;
 
     function startQuiz() {
       const n = parseInt(numQuestionsSelect.value, 10);
-      questions = shuffle(verbs).slice(0, n);
-      currentIndex = -1;
+      const selected = shuffle(verbs).slice(0, n);
+
+      questions = selected.map(v => ({
+        verb: v,
+        shownCol: Math.floor(Math.random() * 4)
+      }));
+
+      rowStats = questions.map(() => ({ correct: 0, possible: 0, td: null }));
       totalCorrect = 0;
       totalPossible = 0;
-      summaryDiv.textContent = "";
-      feedbackDiv.textContent = "";
+
       scoreInfo.textContent = "Puntuación: 0 / 0";
-      nextQuestion();
-    }
+      summaryDiv.textContent = "";
+      feedbackDiv.textContent = "Escribe tus respuestas y pulsa «Corregir todo» para ver los aciertos.";
+      qInfo.textContent = `Total de preguntas: ${questions.length}`;
 
-    function nextQuestion() {
-      currentIndex++;
-      feedbackDiv.textContent = "";
+      // Limpiar tabla
+      tbody.innerHTML = "";
 
-      if (currentIndex >= questions.length) {
-        qInfo.textContent = "Ejercicio terminado";
-        checkBtn.disabled = true;
-        nextBtn.disabled = true;
-        const pct = totalPossible > 0 ? ((totalCorrect * 100) / totalPossible).toFixed(1) : "0.0";
-        summaryDiv.textContent = `Resultado final: ${totalCorrect} de ${totalPossible} (${pct} %)`;
-        return;
-      }
+      questions.forEach((q, index) => {
+        const tr = document.createElement("tr");
+        const v = q.verb;
 
-      const q = questions[currentIndex];
-      currentShownCol = Math.floor(Math.random() * 4);
+        for (let col = 0; col < 4; col++) {
+          const td = document.createElement("td");
+          const prop = propByCol[col];
+          const value = v[prop];
 
-      qInfo.textContent = `Pregunta ${currentIndex + 1} de ${questions.length}`;
+          if (col === q.shownCol || (col === COL_PAST_PARTICIPLE && value === "—")) {
+            // Se muestra como pista o no aplica
+            td.textContent = value;
+            if (col === q.shownCol) {
+              td.classList.add("shown-cell");
+            }
+          } else {
+            const input = document.createElement("input");
+            input.type = "text";
+            input.setAttribute("data-qindex", index);
+            input.setAttribute("data-col", col);
+            td.appendChild(input);
+          }
 
-      [cellPresent, cellPastSimple, cellPastParticiple, cellTranslate].forEach(td => td.className = "");
+          tr.appendChild(td);
+        }
 
-      cellPresent.textContent = currentShownCol === 0 ? q.present : "";
-      cellPastSimple.textContent = currentShownCol === 1 ? q.pastSimple : "";
-      cellPastParticiple.textContent = currentShownCol === 2 ? q.pastParticiple : "";
-      cellTranslate.textContent = currentShownCol === 3 ? q.translate : "";
+        const resultTd = document.createElement("td");
+        resultTd.className = "row-result";
+        resultTd.textContent = "—";
+        tr.appendChild(resultTd);
+        rowStats[index].td = resultTd;
 
-      if (currentShownCol === 0) cellPresent.classList.add("shown-cell");
-      if (currentShownCol === 1) cellPastSimple.classList.add("shown-cell");
-      if (currentShownCol === 2) cellPastParticiple.classList.add("shown-cell");
-      if (currentShownCol === 3) cellTranslate.classList.add("shown-cell");
-
-      inputPresentCell.innerHTML = "";
-      inputPastSimpleCell.innerHTML = "";
-      inputPastParticipleCell.innerHTML = "";
-      inputTranslateCell.innerHTML = "";
-
-      if (currentShownCol !== 0) {
-        inputPresent = createInput();
-        inputPresentCell.appendChild(inputPresent);
-      } else {
-        inputPresentCell.textContent = "(pista)";
-      }
-
-      if (currentShownCol !== 1) {
-        inputPastSimple = createInput();
-        inputPastSimpleCell.appendChild(inputPastSimple);
-      } else {
-        inputPastSimpleCell.textContent = "(pista)";
-      }
-
-      if (currentShownCol !== 2 && q.pastParticiple !== "—") {
-        inputPastParticiple = createInput();
-        inputPastParticipleCell.appendChild(inputPastParticiple);
-      } else if (q.pastParticiple === "—") {
-        inputPastParticipleCell.textContent = "(no aplica)";
-      } else {
-        inputPastParticipleCell.textContent = "(pista)";
-      }
-
-      if (currentShownCol !== 3) {
-        inputTranslate = createInput();
-        inputTranslateCell.appendChild(inputTranslate);
-      } else {
-        inputTranslateCell.textContent = "(pista)";
-      }
+        tbody.appendChild(tr);
+      });
 
       checkBtn.disabled = false;
-      nextBtn.disabled = true;
     }
 
-    function checkCurrent() {
-      const q = questions[currentIndex];
-      let fb = "";
-      let correctRow = 0;
-      let possibleRow = 0;
+    function correctAll() {
+      if (questions.length === 0) return;
 
-      const ansPresent = currentShownCol !== 0 ? (inputPresent.value || "").trim() : q.present;
-      const ansPastSimple = currentShownCol !== 1 ? (inputPastSimple.value || "").trim() : q.pastSimple;
-      const ansPastParticiple =
-        (currentShownCol !== 2 && q.pastParticiple !== "—") ? (inputPastParticiple.value || "").trim() : q.pastParticiple;
-      const ansTranslate = currentShownCol !== 3 ? (inputTranslate.value || "").trim() : q.translate;
+      totalCorrect = 0;
+      totalPossible = 0;
+      rowStats.forEach(stat => { stat.correct = 0; stat.possible = 0; if (stat.td) { stat.td.textContent = "—"; stat.td.classList.remove("ok", "bad"); } });
 
-      fb += "<div class='feedback-line'><strong>Tus respuestas:</strong></div>";
-      fb += `<div class='feedback-line'>PRESENT: ${ansPresent || "<i>(vacío)</i>"}</div>`;
-      fb += `<div class='feedback-line'>PAST SIMPLE: ${ansPastSimple || "<i>(vacío)</i>"}</div>`;
-      fb += `<div class='feedback-line'>PAST PARTICIPLE: ${ansPastParticiple || "<i>(vacío)</i>"}</div>`;
-      fb += `<div class='feedback-line'>TRANSLATE: ${ansTranslate || "<i>(vacío)</i>"}</div>`;
+      // Quitar colores anteriores
+      tbody.querySelectorAll("td").forEach(td => {
+        td.classList.remove("ok-cell", "bad-cell");
+      });
 
-      fb += "<div class='feedback-line' style='margin-top:6px;'><strong>Solución correcta:</strong></div>";
-      fb += `<div class='feedback-line'>PRESENT: ${q.present}</div>`;
-      fb += `<div class='feedback-line'>PAST SIMPLE: ${q.pastSimple}</div>`;
-      fb += `<div class='feedback-line'>PAST PARTICIPLE: ${q.pastParticiple}</div>`;
-      fb += `<div class='feedback-line'>TRANSLATE: ${q.translate}</div>`;
+      const inputs = tbody.querySelectorAll("input[data-qindex]");
+      inputs.forEach(input => {
+        const qIndex = parseInt(input.getAttribute("data-qindex"), 10);
+        const col = parseInt(input.getAttribute("data-col"), 10);
+        const q = questions[qIndex].verb;
+        const prop = propByCol[col];
+        const correctVal = q[prop];
+        const userVal = input.value || "";
+        const td = input.parentElement;
 
-      if (currentShownCol !== 0) {
-        possibleRow++;
-        totalPossible++;
-        if (normalize(ansPresent) === normalize(q.present)) {
-          correctRow++;
-          totalCorrect++;
-          fb += `<div class='feedback-line ok'>✔ PRESENT correcto</div>`;
+        let isCorrect = false;
+
+        if (prop === "translate") {
+          isCorrect = isTranslationCorrect(userVal, correctVal);
         } else {
-          fb += `<div class='feedback-line bad'>✘ PRESENT incorrecto</div>`;
+          isCorrect = (normalize(userVal) === normalize(correctVal));
         }
-      }
 
-      if (currentShownCol !== 1) {
-        possibleRow++;
         totalPossible++;
-        if (normalize(ansPastSimple) === normalize(q.pastSimple)) {
-          correctRow++;
+        rowStats[qIndex].possible++;
+
+        if (isCorrect) {
           totalCorrect++;
-          fb += `<div class='feedback-line ok'>✔ PAST SIMPLE correcto</div>`;
+          rowStats[qIndex].correct++;
+          td.classList.add("ok-cell");
         } else {
-          fb += `<div class='feedback-line bad'>✘ PAST SIMPLE incorrecto</div>`;
+          td.classList.add("bad-cell");
         }
-      }
+      });
 
-      if (currentShownCol !== 2 && q.pastParticiple !== "—") {
-        possibleRow++;
-        totalPossible++;
-        if (normalize(ansPastParticiple) === normalize(q.pastParticiple)) {
-          correctRow++;
-          totalCorrect++;
-          fb += `<div class='feedback-line ok'>✔ PAST PARTICIPLE correcto</div>`;
+      // Resultado por fila
+      rowStats.forEach(stat => {
+        if (!stat.td) return;
+        if (stat.possible === 0) {
+          stat.td.textContent = "";
+          return;
+        }
+        stat.td.textContent = `${stat.correct}/${stat.possible}`;
+        if (stat.correct === stat.possible) {
+          stat.td.classList.add("ok");
         } else {
-          fb += `<div class='feedback-line bad'>✘ PAST PARTICIPLE incorrecto</div>`;
+          stat.td.classList.add("bad");
         }
-      }
-
-      if (currentShownCol !== 3) {
-        possibleRow++;
-        totalPossible++;
-        if (isTranslationCorrect(ansTranslate, q.translate)) {
-          correctRow++;
-          totalCorrect++;
-          fb += `<div class='feedback-line ok'>✔ TRANSLATE correcto</div>`;
-        } else {
-          fb += `<div class='feedback-line bad'>✘ TRANSLATE incorrecto</div>`;
-        }
-      }
-
-      fb += `<div class='feedback-line' style='margin-top:4px;'><strong>Aciertos en esta fila:</strong> ${correctRow} de ${possibleRow}</div>`;
-
-      feedbackDiv.innerHTML = fb;
+      });
 
       const pct = totalPossible > 0 ? ((totalCorrect * 100) / totalPossible).toFixed(1) : "0.0";
       scoreInfo.textContent = `Puntuación: ${totalCorrect} / ${totalPossible} (${pct} %)`;
+      summaryDiv.textContent = pct >= 80
+        ? "¡Muy bien! 💪 Buen dominio de estos verbos."
+        : "Sigue practicando, verás cómo sube la puntuación. 😊";
 
       checkBtn.disabled = true;
-      nextBtn.disabled = false;
+      feedbackDiv.textContent = "Revisa los colores de la tabla: verde = correcto, rojo = incorrecto. Pulsa «Empezar» para nuevo ejercicio.";
     }
 
     startBtn.addEventListener("click", startQuiz);
-    checkBtn.addEventListener("click", checkCurrent);
-    nextBtn.addEventListener("click", nextQuestion);
+    checkBtn.addEventListener("click", correctAll);
   </script>
 </body>
 </html>
