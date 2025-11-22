@@ -1,575 +1,536 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.2">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="UTF-8" />
+  <title>Verbos irregulares A2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f3f4f6;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 600px;
+      padding: 16px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      margin: 0 0 8px;
+      text-align: center;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #555;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    select, button {
+      font-size: 0.95rem;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      background: #fff;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: #2563eb;
+      color: white;
+      font-weight: 500;
+    }
+
+    button:disabled {
+      background: #9ca3af;
+      cursor: default;
+    }
+
+    .status {
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .status span {
+      background: #e5e7eb;
+      padding: 4px 8px;
+      border-radius: 999px;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .table th,
+    .table td {
+      border: 1px solid #e5e7eb;
+      padding: 6px;
+      text-align: left;
+    }
+
+    .table th {
+      background: #f9fafb;
+      font-weight: 600;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 4px 6px;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      font-size: 0.9rem;
+    }
+
+    .shown-cell {
+      background: #ecfdf5;
+      font-weight: 600;
+    }
+
+    .feedback {
+      font-size: 0.85rem;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed #e5e7eb;
+    }
+
+    .feedback-line {
+      margin: 2px 0;
+    }
+
+    .ok {
+      color: #15803d;
+      font-weight: 600;
+    }
+
+    .bad {
+      color: #b91c1c;
+      font-weight: 600;
+    }
+
+    .buttons-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .summary {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .muted {
+      color: #6b7280;
+      font-size: 0.85rem;
+      text-align: center;
+      margin-top: 8px;
+    }
   </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="es"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Verbos irregulares A2&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>* {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-sizing: border-box;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #f3f4f6;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.app {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 600px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.card {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #ffffff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 2px 8px rgba(0,0,0,0.08);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>h1 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.4rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.subtitle {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #555;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.controls {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>select, button {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.95rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 6px 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid #d1d5db;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>button {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #2563eb;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 500;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>button:disabled {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #9ca3af;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cursor: default;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.status {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.status span {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #e5e7eb;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 4px 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.table {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-collapse: collapse;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.table th,</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.table td {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid #e5e7eb;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: left;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.table th {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #f9fafb;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>input[type="text"] {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 4px 6px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid #d1d5db;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.shown-cell {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #ecfdf5;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.feedback {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.85rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-top: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-top: 1px dashed #e5e7eb;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.feedback-line {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 2px 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.ok {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #15803d;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.bad {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #b91c1c;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.buttons-row {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: flex-end;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.summary {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.95rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 500;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.muted {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #6b7280;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.85rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="app"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h1&gt;Verbos irregulares A2&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="subtitle"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>Una columna se muestra como pista. Completa las demás y corrige antes de pasar a la siguiente.</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="controls"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>Preguntas:</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;select id="numQuestions"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="5"&gt;5&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="10" selected&gt;10&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="20"&gt;20&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="startBtn"&gt;Empezar&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="status"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span id="qInfo"&gt;Sin empezar&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span id="scoreInfo"&gt;Puntuación: 0 / 0&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;table class="table"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th&gt;PRESENT&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th&gt;PAST SIMPLE&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th&gt;PAST PARTICIPLE&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th&gt;TRANSLATE&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;td id="cellPresent"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;td id="cellPastSimple"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;td id="cellPastParticiple"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;td id="cellTranslate"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;td id="inputPresentCell"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;td id="inputPastSimpleCell"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;td id="inputPastParticipleCell"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;td id="inputTranslateCell"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/table&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="buttons-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="checkBtn" disabled&gt;Corregir&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="nextBtn" disabled&gt;Siguiente&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="feedback" class="feedback"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div id="summary" class="summary"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="muted"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>Truco: en traducción con dos significados (ej. &lt;b&gt;ser / estar&lt;/b&gt;) basta con poner uno, o los dos.</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>// --- Datos de verbos ---</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const verbs = [</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "be", <span class="Apple-converted-space">      </span>pastSimple: "was / were", pastParticiple: "been",<span class="Apple-converted-space">    </span>translate: "ser / estar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "become", <span class="Apple-converted-space">  </span>pastSimple: "became", <span class="Apple-converted-space">    </span>pastParticiple: "become",<span class="Apple-converted-space">  </span>translate: "convertirse / volverse" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "begin",<span class="Apple-converted-space">    </span>pastSimple: "began",<span class="Apple-converted-space">      </span>pastParticiple: "begun", <span class="Apple-converted-space">  </span>translate: "empezar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "break",<span class="Apple-converted-space">    </span>pastSimple: "broke",<span class="Apple-converted-space">      </span>pastParticiple: "broken",<span class="Apple-converted-space">  </span>translate: "romper" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "bring",<span class="Apple-converted-space">    </span>pastSimple: "brought",<span class="Apple-converted-space">    </span>pastParticiple: "brought", translate: "traer" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "build",<span class="Apple-converted-space">    </span>pastSimple: "built",<span class="Apple-converted-space">      </span>pastParticiple: "built", <span class="Apple-converted-space">  </span>translate: "construir" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "buy",<span class="Apple-converted-space">      </span>pastSimple: "bought", <span class="Apple-converted-space">    </span>pastParticiple: "bought",<span class="Apple-converted-space">  </span>translate: "comprar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "can",<span class="Apple-converted-space">      </span>pastSimple: "could",<span class="Apple-converted-space">      </span>pastParticiple: "—", <span class="Apple-converted-space">      </span>translate: "poder" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "catch",<span class="Apple-converted-space">    </span>pastSimple: "caught", <span class="Apple-converted-space">    </span>pastParticiple: "caught",<span class="Apple-converted-space">  </span>translate: "atrapar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "choose", <span class="Apple-converted-space">  </span>pastSimple: "chose",<span class="Apple-converted-space">      </span>pastParticiple: "chosen",<span class="Apple-converted-space">  </span>translate: "elegir" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "come", <span class="Apple-converted-space">    </span>pastSimple: "came", <span class="Apple-converted-space">      </span>pastParticiple: "come",<span class="Apple-converted-space">    </span>translate: "venir" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "cost", <span class="Apple-converted-space">    </span>pastSimple: "cost", <span class="Apple-converted-space">      </span>pastParticiple: "cost",<span class="Apple-converted-space">    </span>translate: "costar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "cut",<span class="Apple-converted-space">      </span>pastSimple: "cut",<span class="Apple-converted-space">        </span>pastParticiple: "cut", <span class="Apple-converted-space">    </span>translate: "cortar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "do", <span class="Apple-converted-space">      </span>pastSimple: "did",<span class="Apple-converted-space">        </span>pastParticiple: "done",<span class="Apple-converted-space">    </span>translate: "hacer" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "dream",<span class="Apple-converted-space">    </span>pastSimple: "dreamt", <span class="Apple-converted-space">    </span>pastParticiple: "dreamt",<span class="Apple-converted-space">  </span>translate: "soñar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "drink",<span class="Apple-converted-space">    </span>pastSimple: "drank",<span class="Apple-converted-space">      </span>pastParticiple: "drunk", <span class="Apple-converted-space">  </span>translate: "beber" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "drive",<span class="Apple-converted-space">    </span>pastSimple: "drove",<span class="Apple-converted-space">      </span>pastParticiple: "driven",<span class="Apple-converted-space">  </span>translate: "conducir" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "eat",<span class="Apple-converted-space">      </span>pastSimple: "ate",<span class="Apple-converted-space">        </span>pastParticiple: "eaten", <span class="Apple-converted-space">  </span>translate: "comer" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "fall", <span class="Apple-converted-space">    </span>pastSimple: "fell", <span class="Apple-converted-space">      </span>pastParticiple: "fallen",<span class="Apple-converted-space">  </span>translate: "caer" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "feel", <span class="Apple-converted-space">    </span>pastSimple: "felt", <span class="Apple-converted-space">      </span>pastParticiple: "felt",<span class="Apple-converted-space">    </span>translate: "sentir" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "find", <span class="Apple-converted-space">    </span>pastSimple: "found",<span class="Apple-converted-space">      </span>pastParticiple: "found", <span class="Apple-converted-space">  </span>translate: "encontrar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "fly",<span class="Apple-converted-space">      </span>pastSimple: "flew", <span class="Apple-converted-space">      </span>pastParticiple: "flown", <span class="Apple-converted-space">  </span>translate: "volar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "forget", <span class="Apple-converted-space">  </span>pastSimple: "forgot", <span class="Apple-converted-space">    </span>pastParticiple: "forgotten", translate: "olvidar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "get",<span class="Apple-converted-space">      </span>pastSimple: "got",<span class="Apple-converted-space">        </span>pastParticiple: "got", <span class="Apple-converted-space">    </span>translate: "conseguir / obtener" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "give", <span class="Apple-converted-space">    </span>pastSimple: "gave", <span class="Apple-converted-space">      </span>pastParticiple: "given", <span class="Apple-converted-space">  </span>translate: "dar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "go", <span class="Apple-converted-space">      </span>pastSimple: "went", <span class="Apple-converted-space">      </span>pastParticiple: "gone",<span class="Apple-converted-space">    </span>translate: "ir" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "grow", <span class="Apple-converted-space">    </span>pastSimple: "grew", <span class="Apple-converted-space">      </span>pastParticiple: "grown", <span class="Apple-converted-space">  </span>translate: "crecer" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "have", <span class="Apple-converted-space">    </span>pastSimple: "had",<span class="Apple-converted-space">        </span>pastParticiple: "had", <span class="Apple-converted-space">    </span>translate: "tener" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "hit",<span class="Apple-converted-space">      </span>pastSimple: "hit",<span class="Apple-converted-space">        </span>pastParticiple: "hit", <span class="Apple-converted-space">    </span>translate: "golpear" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "keep", <span class="Apple-converted-space">    </span>pastSimple: "kept", <span class="Apple-converted-space">      </span>pastParticiple: "kept",<span class="Apple-converted-space">    </span>translate: "mantener / conservar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "know", <span class="Apple-converted-space">    </span>pastSimple: "knew", <span class="Apple-converted-space">      </span>pastParticiple: "known", <span class="Apple-converted-space">  </span>translate: "saber / conocer" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "lay",<span class="Apple-converted-space">      </span>pastSimple: "laid", <span class="Apple-converted-space">      </span>pastParticiple: "laid",<span class="Apple-converted-space">    </span>translate: "colocar / poner" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "learn",<span class="Apple-converted-space">    </span>pastSimple: "learnt", <span class="Apple-converted-space">    </span>pastParticiple: "learnt",<span class="Apple-converted-space">  </span>translate: "aprender" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "leave",<span class="Apple-converted-space">    </span>pastSimple: "left", <span class="Apple-converted-space">      </span>pastParticiple: "left",<span class="Apple-converted-space">    </span>translate: "irse / dejar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "lend", <span class="Apple-converted-space">    </span>pastSimple: "lent", <span class="Apple-converted-space">      </span>pastParticiple: "lent",<span class="Apple-converted-space">    </span>translate: "prestar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "lose", <span class="Apple-converted-space">    </span>pastSimple: "lost", <span class="Apple-converted-space">      </span>pastParticiple: "lost",<span class="Apple-converted-space">    </span>translate: "perder" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "make", <span class="Apple-converted-space">    </span>pastSimple: "made", <span class="Apple-converted-space">      </span>pastParticiple: "made",<span class="Apple-converted-space">    </span>translate: "hacer / fabricar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "meet", <span class="Apple-converted-space">    </span>pastSimple: "met",<span class="Apple-converted-space">        </span>pastParticiple: "met", <span class="Apple-converted-space">    </span>translate: "conocer / encontrarse" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "pay",<span class="Apple-converted-space">      </span>pastSimple: "paid", <span class="Apple-converted-space">      </span>pastParticiple: "paid",<span class="Apple-converted-space">    </span>translate: "pagar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "put",<span class="Apple-converted-space">      </span>pastSimple: "put",<span class="Apple-converted-space">        </span>pastParticiple: "put", <span class="Apple-converted-space">    </span>translate: "poner" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "read", <span class="Apple-converted-space">    </span>pastSimple: "read", <span class="Apple-converted-space">      </span>pastParticiple: "read",<span class="Apple-converted-space">    </span>translate: "leer" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "ring", <span class="Apple-converted-space">    </span>pastSimple: "rang", <span class="Apple-converted-space">      </span>pastParticiple: "rung",<span class="Apple-converted-space">    </span>translate: "sonar / llamar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "run",<span class="Apple-converted-space">      </span>pastSimple: "ran",<span class="Apple-converted-space">        </span>pastParticiple: "run", <span class="Apple-converted-space">    </span>translate: "correr" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "say",<span class="Apple-converted-space">      </span>pastSimple: "said", <span class="Apple-converted-space">      </span>pastParticiple: "said",<span class="Apple-converted-space">    </span>translate: "decir" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "see",<span class="Apple-converted-space">      </span>pastSimple: "saw",<span class="Apple-converted-space">        </span>pastParticiple: "seen",<span class="Apple-converted-space">    </span>translate: "ver" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "sell", <span class="Apple-converted-space">    </span>pastSimple: "sold", <span class="Apple-converted-space">      </span>pastParticiple: "sold",<span class="Apple-converted-space">    </span>translate: "vender" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "send", <span class="Apple-converted-space">    </span>pastSimple: "sent", <span class="Apple-converted-space">      </span>pastParticiple: "sent",<span class="Apple-converted-space">    </span>translate: "enviar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "shut", <span class="Apple-converted-space">    </span>pastSimple: "shut", <span class="Apple-converted-space">      </span>pastParticiple: "shut",<span class="Apple-converted-space">    </span>translate: "cerrar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "sing", <span class="Apple-converted-space">    </span>pastSimple: "sang", <span class="Apple-converted-space">      </span>pastParticiple: "sung",<span class="Apple-converted-space">    </span>translate: "cantar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "sit",<span class="Apple-converted-space">      </span>pastSimple: "sat",<span class="Apple-converted-space">        </span>pastParticiple: "sat", <span class="Apple-converted-space">    </span>translate: "sentarse" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "sleep",<span class="Apple-converted-space">    </span>pastSimple: "slept",<span class="Apple-converted-space">      </span>pastParticiple: "slept", <span class="Apple-converted-space">  </span>translate: "dormir" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "speak",<span class="Apple-converted-space">    </span>pastSimple: "spoke",<span class="Apple-converted-space">      </span>pastParticiple: "spoken",<span class="Apple-converted-space">  </span>translate: "hablar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "spend",<span class="Apple-converted-space">    </span>pastSimple: "spent",<span class="Apple-converted-space">      </span>pastParticiple: "spent", <span class="Apple-converted-space">  </span>translate: "gastar / pasar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "stand",<span class="Apple-converted-space">    </span>pastSimple: "stood",<span class="Apple-converted-space">      </span>pastParticiple: "stood", <span class="Apple-converted-space">  </span>translate: "estar de pie" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "steal",<span class="Apple-converted-space">    </span>pastSimple: "stole",<span class="Apple-converted-space">      </span>pastParticiple: "stolen",<span class="Apple-converted-space">  </span>translate: "robar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "swim", <span class="Apple-converted-space">    </span>pastSimple: "swam", <span class="Apple-converted-space">      </span>pastParticiple: "swum",<span class="Apple-converted-space">    </span>translate: "nadar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "take", <span class="Apple-converted-space">    </span>pastSimple: "took", <span class="Apple-converted-space">      </span>pastParticiple: "taken", <span class="Apple-converted-space">  </span>translate: "tomar / llevar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "teach",<span class="Apple-converted-space">    </span>pastSimple: "taught", <span class="Apple-converted-space">    </span>pastParticiple: "taught",<span class="Apple-converted-space">  </span>translate: "enseñar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "tell", <span class="Apple-converted-space">    </span>pastSimple: "told", <span class="Apple-converted-space">      </span>pastParticiple: "told",<span class="Apple-converted-space">    </span>translate: "decir / contar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "think",<span class="Apple-converted-space">    </span>pastSimple: "thought",<span class="Apple-converted-space">    </span>pastParticiple: "thought", translate: "pensar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "throw",<span class="Apple-converted-space">    </span>pastSimple: "threw",<span class="Apple-converted-space">      </span>pastParticiple: "thrown",<span class="Apple-converted-space">  </span>translate: "lanzar / tirar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "understand", pastSimple: "understood", pastParticiple: "understood", translate: "entender" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "wake", <span class="Apple-converted-space">    </span>pastSimple: "woke", <span class="Apple-converted-space">      </span>pastParticiple: "woken", <span class="Apple-converted-space">  </span>translate: "despertar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "wear", <span class="Apple-converted-space">    </span>pastSimple: "wore", <span class="Apple-converted-space">      </span>pastParticiple: "worn",<span class="Apple-converted-space">    </span>translate: "llevar puesto / vestir" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "win",<span class="Apple-converted-space">      </span>pastSimple: "won",<span class="Apple-converted-space">        </span>pastParticiple: "won", <span class="Apple-converted-space">    </span>translate: "ganar" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ present: "write",<span class="Apple-converted-space">    </span>pastSimple: "wrote",<span class="Apple-converted-space">      </span>pastParticiple: "written", translate: "escribir" }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// --- Utilidades ---</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function shuffle(array) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const arr = array.slice();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>for (let i = arr.length - 1; i &gt; 0; i--) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const j = Math.floor(Math.random() * (i + 1));</p>
-<p class="p1"><span class="Apple-converted-space">        </span>[arr[i], arr[j]] = [arr[j], arr[i]];</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>return arr;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function normalize(str) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>return str</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.toLowerCase()</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.trim()</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.normalize("NFD").replace(/[\u0300-\u036f]/g, "") // quitar tildes</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.replace(/\s+/g, " ")</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.replace(" / ", "/");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Traducción flexible: basta una de las opciones</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function isTranslationCorrect(user, correct) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const normCorrect = normalize(correct);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>let normUser = normalize(user);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>normUser = normUser.replace(/\s*y\s*/g, "/").replace(/,/g, "/");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>const correctParts = normCorrect.split("/").map(p =&gt; p.trim()).filter(Boolean);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const userParts = normUser.split("/").map(p =&gt; p.trim()).filter(Boolean);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>for (const up of userParts) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>for (const cp of correctParts) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (up === cp) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return true;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>return false;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// --- Estado global ---</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let questions = [];</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let currentIndex = -1;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let totalCorrect = 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let totalPossible = 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>let currentShownCol = 0; // 0=present,1=pastSimple,2=participle,3=translate</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// --- Referencias DOM ---</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const numQuestionsSelect = document.getElementById("numQuestions");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const startBtn = document.getElementById("startBtn");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const checkBtn = document.getElementById("checkBtn");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const nextBtn = document.getElementById("nextBtn");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const qInfo = document.getElementById("qInfo");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const scoreInfo = document.getElementById("scoreInfo");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const feedbackDiv = document.getElementById("feedback");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const summaryDiv = document.getElementById("summary");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const cellPresent = document.getElementById("cellPresent");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const cellPastSimple = document.getElementById("cellPastSimple");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const cellPastParticiple = document.getElementById("cellPastParticiple");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const cellTranslate = document.getElementById("cellTranslate");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>const inputPresentCell = document.getElementById("inputPresentCell");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const inputPastSimpleCell = document.getElementById("inputPastSimpleCell");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const inputPastParticipleCell = document.getElementById("inputPastParticipleCell");</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const inputTranslateCell = document.getElementById("inputTranslateCell");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>let inputPresent, inputPastSimple, inputPastParticiple, inputTranslate;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function createInput() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const inp = document.createElement("input");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>inp.type = "text";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>return inp;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// --- Lógica principal ---</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function startQuiz() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const n = parseInt(numQuestionsSelect.value, 10);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>questions = shuffle(verbs).slice(0, n);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>currentIndex = -1;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>totalCorrect = 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>totalPossible = 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>summaryDiv.textContent = "";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>feedbackDiv.textContent = "";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>scoreInfo.textContent = "Puntuación: 0 / 0";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>nextQuestion();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function nextQuestion() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>currentIndex++;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>feedbackDiv.textContent = "";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (currentIndex &gt;= questions.length) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Fin</p>
-<p class="p1"><span class="Apple-converted-space">        </span>qInfo.textContent = "Ejercicio terminado";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>checkBtn.disabled = true;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>nextBtn.disabled = true;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const pct = totalPossible &gt; 0 ? ((totalCorrect * 100) / totalPossible).toFixed(1) : "0.0";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>summaryDiv.textContent = `Resultado final: ${totalCorrect} de ${totalPossible} (${pct} %)`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>const q = questions[currentIndex];</p>
-<p class="p1"><span class="Apple-converted-space">      </span>currentShownCol = Math.floor(Math.random() * 4);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>qInfo.textContent = `Pregunta ${currentIndex + 1} de ${questions.length}`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Reset clases</p>
-<p class="p1"><span class="Apple-converted-space">      </span>[cellPresent, cellPastSimple, cellPastParticiple, cellTranslate].forEach(td =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>td.className = "";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Mostrar pista en fila superior</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cellPresent.textContent = currentShownCol === 0 ? q.present : "";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cellPastSimple.textContent = currentShownCol === 1 ? q.pastSimple : "";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cellPastParticiple.textContent = currentShownCol === 2 ? q.pastParticiple : "";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>cellTranslate.textContent = currentShownCol === 3 ? q.translate : "";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (currentShownCol === 0) cellPresent.classList.add("shown-cell");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (currentShownCol === 1) cellPastSimple.classList.add("shown-cell");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (currentShownCol === 2) cellPastParticiple.classList.add("shown-cell");</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (currentShownCol === 3) cellTranslate.classList.add("shown-cell");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Crear inputs o texto según si es pista o no</p>
-<p class="p1"><span class="Apple-converted-space">      </span>inputPresentCell.innerHTML = "";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>inputPastSimpleCell.innerHTML = "";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>inputPastParticipleCell.innerHTML = "";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>inputTranslateCell.innerHTML = "";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (currentShownCol !== 0) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>inputPresent = createInput();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>inputPresentCell.appendChild(inputPresent);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>inputPresentCell.textContent = "(pista)";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (currentShownCol !== 1) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>inputPastSimple = createInput();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>inputPastSimpleCell.appendChild(inputPastSimple);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>inputPastSimpleCell.textContent = "(pista)";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (currentShownCol !== 2 &amp;&amp; q.pastParticiple !== "—") {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>inputPastParticiple = createInput();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>inputPastParticipleCell.appendChild(inputPastParticiple);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else if (q.pastParticiple === "—") {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>inputPastParticipleCell.textContent = "(no aplica)";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>inputPastParticipleCell.textContent = "(pista)";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (currentShownCol !== 3) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>inputTranslate = createInput();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>inputTranslateCell.appendChild(inputTranslate);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>inputTranslateCell.textContent = "(pista)";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>checkBtn.disabled = false;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>nextBtn.disabled = true;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>function checkCurrent() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const q = questions[currentIndex];</p>
-<p class="p1"><span class="Apple-converted-space">      </span>let fb = "";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>let correctRow = 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>let possibleRow = 0;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Recoger respuestas (o vacío si no hay input)</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const ansPresent = currentShownCol !== 0 ? (inputPresent.value || "").trim() : q.present;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const ansPastSimple = currentShownCol !== 1 ? (inputPastSimple.value || "").trim() : q.pastSimple;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const ansPastParticiple =</p>
-<p class="p1"><span class="Apple-converted-space">        </span>(currentShownCol !== 2 &amp;&amp; q.pastParticiple !== "—") ? (inputPastParticiple.value || "").trim() : q.pastParticiple;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const ansTranslate = currentShownCol !== 3 ? (inputTranslate.value || "").trim() : q.translate;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>fb += "&lt;div class='feedback-line'&gt;&lt;strong&gt;Tus respuestas:&lt;/strong&gt;&lt;/div&gt;";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>fb += `&lt;div class='feedback-line'&gt;PRESENT: ${ansPresent || "&lt;i&gt;(vacío)&lt;/i&gt;"}&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>fb += `&lt;div class='feedback-line'&gt;PAST SIMPLE: ${ansPastSimple || "&lt;i&gt;(vacío)&lt;/i&gt;"}&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>fb += `&lt;div class='feedback-line'&gt;PAST PARTICIPLE: ${ansPastParticiple || "&lt;i&gt;(vacío)&lt;/i&gt;"}&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>fb += `&lt;div class='feedback-line'&gt;TRANSLATE: ${ansTranslate || "&lt;i&gt;(vacío)&lt;/i&gt;"}&lt;/div&gt;`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>fb += "&lt;div class='feedback-line' style='margin-top:6px;'&gt;&lt;strong&gt;Solución correcta:&lt;/strong&gt;&lt;/div&gt;";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>fb += `&lt;div class='feedback-line'&gt;PRESENT: ${q.present}&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>fb += `&lt;div class='feedback-line'&gt;PAST SIMPLE: ${q.pastSimple}&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>fb += `&lt;div class='feedback-line'&gt;PAST PARTICIPLE: ${q.pastParticiple}&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>fb += `&lt;div class='feedback-line'&gt;TRANSLATE: ${q.translate}&lt;/div&gt;`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Corrección PRESENT</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (currentShownCol !== 0) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>possibleRow++;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>totalPossible++;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (normalize(ansPresent) === normalize(q.present)) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>correctRow++;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>totalCorrect++;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>fb += `&lt;div class='feedback-line ok'&gt;✔ PRESENT correcto&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>fb += `&lt;div class='feedback-line bad'&gt;✘ PRESENT incorrecto&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Corrección PAST SIMPLE</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (currentShownCol !== 1) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>possibleRow++;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>totalPossible++;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (normalize(ansPastSimple) === normalize(q.pastSimple)) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>correctRow++;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>totalCorrect++;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>fb += `&lt;div class='feedback-line ok'&gt;✔ PAST SIMPLE correcto&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>fb += `&lt;div class='feedback-line bad'&gt;✘ PAST SIMPLE incorrecto&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Corrección PAST PARTICIPLE</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (currentShownCol !== 2 &amp;&amp; q.pastParticiple !== "—") {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>possibleRow++;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>totalPossible++;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (normalize(ansPastParticiple) === normalize(q.pastParticiple)) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>correctRow++;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>totalCorrect++;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>fb += `&lt;div class='feedback-line ok'&gt;✔ PAST PARTICIPLE correcto&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>fb += `&lt;div class='feedback-line bad'&gt;✘ PAST PARTICIPLE incorrecto&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Corrección TRANSLATE (flexible)</p>
-<p class="p1"><span class="Apple-converted-space">      </span>if (currentShownCol !== 3) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>possibleRow++;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>totalPossible++;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (isTranslationCorrect(ansTranslate, q.translate)) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>correctRow++;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>totalCorrect++;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>fb += `&lt;div class='feedback-line ok'&gt;✔ TRANSLATE correcto&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>fb += `&lt;div class='feedback-line bad'&gt;✘ TRANSLATE incorrecto&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>fb += `&lt;div class='feedback-line' style='margin-top:4px;'&gt;&lt;strong&gt;Aciertos en esta fila:&lt;/strong&gt; ${correctRow} de ${possibleRow}&lt;/div&gt;`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>feedbackDiv.innerHTML = fb;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>const pct = totalPossible &gt; 0 ? ((totalCorrect * 100) / totalPossible).toFixed(1) : "0.0";</p>
-<p class="p1"><span class="Apple-converted-space">      </span>scoreInfo.textContent = `Puntuación: ${totalCorrect} / ${totalPossible} (${pct} %)`,</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>checkBtn.disabled = true;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>nextBtn.disabled = false;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// --- Eventos ---</p>
-<p class="p1"><span class="Apple-converted-space">    </span>startBtn.addEventListener("click", startQuiz);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>checkBtn.addEventListener("click", checkCurrent);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>nextBtn.addEventListener("click", nextQuestion);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+  <div class="app">
+    <div class="card">
+      <h1>Verbos irregulares A2</h1>
+      <div class="subtitle">
+        Una columna se muestra como pista. Completa las demás y corrige antes de pasar a la siguiente.
+      </div>
+
+      <div class="controls">
+        <label>
+          Preguntas:
+          <select id="numQuestions">
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+          </select>
+        </label>
+        <button id="startBtn">Empezar</button>
+      </div>
+
+      <div class="status">
+        <span id="qInfo">Sin empezar</span>
+        <span id="scoreInfo">Puntuación: 0 / 0</span>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>PRESENT</th>
+            <th>PAST SIMPLE</th>
+            <th>PAST PARTICIPLE</th>
+            <th>TRANSLATE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="cellPresent"></td>
+            <td id="cellPastSimple"></td>
+            <td id="cellPastParticiple"></td>
+            <td id="cellTranslate"></td>
+          </tr>
+          <tr>
+            <td id="inputPresentCell"></td>
+            <td id="inputPastSimpleCell"></td>
+            <td id="inputPastParticipleCell"></td>
+            <td id="inputTranslateCell"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="buttons-row">
+        <button id="checkBtn" disabled>Corregir</button>
+        <button id="nextBtn" disabled>Siguiente</button>
+      </div>
+
+      <div id="feedback" class="feedback"></div>
+      <div id="summary" class="summary"></div>
+      <div class="muted">
+        Truco: en traducción con dos significados (ej. <b>ser / estar</b>) basta con poner uno, o los dos.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const verbs = [
+      { present: "be",       pastSimple: "was / were", pastParticiple: "been",    translate: "ser / estar" },
+      { present: "become",   pastSimple: "became",     pastParticiple: "become",  translate: "convertirse / volverse" },
+      { present: "begin",    pastSimple: "began",      pastParticiple: "begun",   translate: "empezar" },
+      { present: "break",    pastSimple: "broke",      pastParticiple: "broken",  translate: "romper" },
+      { present: "bring",    pastSimple: "brought",    pastParticiple: "brought", translate: "traer" },
+      { present: "build",    pastSimple: "built",      pastParticiple: "built",   translate: "construir" },
+      { present: "buy",      pastSimple: "bought",     pastParticiple: "bought",  translate: "comprar" },
+      { present: "can",      pastSimple: "could",      pastParticiple: "—",       translate: "poder" },
+      { present: "catch",    pastSimple: "caught",     pastParticiple: "caught",  translate: "atrapar" },
+      { present: "choose",   pastSimple: "chose",      pastParticiple: "chosen",  translate: "elegir" },
+      { present: "come",     pastSimple: "came",       pastParticiple: "come",    translate: "venir" },
+      { present: "cost",     pastSimple: "cost",       pastParticiple: "cost",    translate: "costar" },
+      { present: "cut",      pastSimple: "cut",        pastParticiple: "cut",     translate: "cortar" },
+      { present: "do",       pastSimple: "did",        pastParticiple: "done",    translate: "hacer" },
+      { present: "dream",    pastSimple: "dreamt",     pastParticiple: "dreamt",  translate: "soñar" },
+      { present: "drink",    pastSimple: "drank",      pastParticiple: "drunk",   translate: "beber" },
+      { present: "drive",    pastSimple: "drove",      pastParticiple: "driven",  translate: "conducir" },
+      { present: "eat",      pastSimple: "ate",        pastParticiple: "eaten",   translate: "comer" },
+      { present: "fall",     pastSimple: "fell",       pastParticiple: "fallen",  translate: "caer" },
+      { present: "feel",     pastSimple: "felt",       pastParticiple: "felt",    translate: "sentir" },
+      { present: "find",     pastSimple: "found",      pastParticiple: "found",   translate: "encontrar" },
+      { present: "fly",      pastSimple: "flew",       pastParticiple: "flown",   translate: "volar" },
+      { present: "forget",   pastSimple: "forgot",     pastParticiple: "forgotten", translate: "olvidar" },
+      { present: "get",      pastSimple: "got",        pastParticiple: "got",     translate: "conseguir / obtener" },
+      { present: "give",     pastSimple: "gave",       pastParticiple: "given",   translate: "dar" },
+      { present: "go",       pastSimple: "went",       pastParticiple: "gone",    translate: "ir" },
+      { present: "grow",     pastSimple: "grew",       pastParticiple: "grown",   translate: "crecer" },
+      { present: "have",     pastSimple: "had",        pastParticiple: "had",     translate: "tener" },
+      { present: "hit",      pastSimple: "hit",        pastParticiple: "hit",     translate: "golpear" },
+      { present: "keep",     pastSimple: "kept",       pastParticiple: "kept",    translate: "mantener / conservar" },
+      { present: "know",     pastSimple: "knew",       pastParticiple: "known",   translate: "saber / conocer" },
+      { present: "lay",      pastSimple: "laid",       pastParticiple: "laid",    translate: "colocar / poner" },
+      { present: "learn",    pastSimple: "learnt",     pastParticiple: "learnt",  translate: "aprender" },
+      { present: "leave",    pastSimple: "left",       pastParticiple: "left",    translate: "irse / dejar" },
+      { present: "lend",     pastSimple: "lent",       pastParticiple: "lent",    translate: "prestar" },
+      { present: "lose",     pastSimple: "lost",       pastParticiple: "lost",    translate: "perder" },
+      { present: "make",     pastSimple: "made",       pastParticiple: "made",    translate: "hacer / fabricar" },
+      { present: "meet",     pastSimple: "met",        pastParticiple: "met",     translate: "conocer / encontrarse" },
+      { present: "pay",      pastSimple: "paid",       pastParticiple: "paid",    translate: "pagar" },
+      { present: "put",      pastSimple: "put",        pastParticiple: "put",     translate: "poner" },
+      { present: "read",     pastSimple: "read",       pastParticiple: "read",    translate: "leer" },
+      { present: "ring",     pastSimple: "rang",       pastParticiple: "rung",    translate: "sonar / llamar" },
+      { present: "run",      pastSimple: "ran",        pastParticiple: "run",     translate: "correr" },
+      { present: "say",      pastSimple: "said",       pastParticiple: "said",    translate: "decir" },
+      { present: "see",      pastSimple: "saw",        pastParticiple: "seen",    translate: "ver" },
+      { present: "sell",     pastSimple: "sold",       pastParticiple: "sold",    translate: "vender" },
+      { present: "send",     pastSimple: "sent",       pastParticiple: "sent",    translate: "enviar" },
+      { present: "shut",     pastSimple: "shut",       pastParticiple: "shut",    translate: "cerrar" },
+      { present: "sing",     pastSimple: "sang",       pastParticiple: "sung",    translate: "cantar" },
+      { present: "sit",      pastSimple: "sat",        pastParticiple: "sat",     translate: "sentarse" },
+      { present: "sleep",    pastSimple: "slept",      pastParticiple: "slept",   translate: "dormir" },
+      { present: "speak",    pastSimple: "spoke",      pastParticiple: "spoken",  translate: "hablar" },
+      { present: "spend",    pastSimple: "spent",      pastParticiple: "spent",   translate: "gastar / pasar" },
+      { present: "stand",    pastSimple: "stood",      pastParticiple: "stood",   translate: "estar de pie" },
+      { present: "steal",    pastSimple: "stole",      pastParticiple: "stolen",  translate: "robar" },
+      { present: "swim",     pastSimple: "swam",       pastParticiple: "swum",    translate: "nadar" },
+      { present: "take",     pastSimple: "took",       pastParticiple: "taken",   translate: "tomar / llevar" },
+      { present: "teach",    pastSimple: "taught",     pastParticiple: "taught",  translate: "enseñar" },
+      { present: "tell",     pastSimple: "told",       pastParticiple: "told",    translate: "decir / contar" },
+      { present: "think",    pastSimple: "thought",    pastParticiple: "thought", translate: "pensar" },
+      { present: "throw",    pastSimple: "threw",      pastParticiple: "thrown",  translate: "lanzar / tirar" },
+      { present: "understand", pastSimple: "understood", pastParticiple: "understood", translate: "entender" },
+      { present: "wake",     pastSimple: "woke",       pastParticiple: "woken",   translate: "despertar" },
+      { present: "wear",     pastSimple: "wore",       pastParticiple: "worn",    translate: "llevar puesto / vestir" },
+      { present: "win",      pastSimple: "won",        pastParticiple: "won",     translate: "ganar" },
+      { present: "write",    pastSimple: "wrote",      pastParticiple: "written", translate: "escribir" }
+    ];
+
+    function shuffle(array) {
+      const arr = array.slice();
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function normalize(str) {
+      return str
+        .toLowerCase()
+        .trim()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, " ")
+        .replace(" / ", "/");
+    }
+
+    function isTranslationCorrect(user, correct) {
+      const normCorrect = normalize(correct);
+      let normUser = normalize(user);
+      normUser = normUser.replace(/\s*y\s*/g, "/").replace(/,/g, "/");
+
+      const correctParts = normCorrect.split("/").map(p => p.trim()).filter(Boolean);
+      const userParts = normUser.split("/").map(p => p.trim()).filter(Boolean);
+
+      for (const up of userParts) {
+        for (const cp of correctParts) {
+          if (up === cp) return true;
+        }
+      }
+      return false;
+    }
+
+    let questions = [];
+    let currentIndex = -1;
+    let totalCorrect = 0;
+    let totalPossible = 0;
+    let currentShownCol = 0;
+
+    const numQuestionsSelect = document.getElementById("numQuestions");
+    const startBtn = document.getElementById("startBtn");
+    const checkBtn = document.getElementById("checkBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const qInfo = document.getElementById("qInfo");
+    const scoreInfo = document.getElementById("scoreInfo");
+    const feedbackDiv = document.getElementById("feedback");
+    const summaryDiv = document.getElementById("summary");
+
+    const cellPresent = document.getElementById("cellPresent");
+    const cellPastSimple = document.getElementById("cellPastSimple");
+    const cellPastParticiple = document.getElementById("cellPastParticiple");
+    const cellTranslate = document.getElementById("cellTranslate");
+
+    const inputPresentCell = document.getElementById("inputPresentCell");
+    const inputPastSimpleCell = document.getElementById("inputPastSimpleCell");
+    const inputPastParticipleCell = document.getElementById("inputPastParticipleCell");
+    const inputTranslateCell = document.getElementById("inputTranslateCell");
+
+    let inputPresent, inputPastSimple, inputPastParticiple, inputTranslate;
+
+    function createInput() {
+      const inp = document.createElement("input");
+      inp.type = "text";
+      return inp;
+    }
+
+    function startQuiz() {
+      const n = parseInt(numQuestionsSelect.value, 10);
+      questions = shuffle(verbs).slice(0, n);
+      currentIndex = -1;
+      totalCorrect = 0;
+      totalPossible = 0;
+      summaryDiv.textContent = "";
+      feedbackDiv.textContent = "";
+      scoreInfo.textContent = "Puntuación: 0 / 0";
+      nextQuestion();
+    }
+
+    function nextQuestion() {
+      currentIndex++;
+      feedbackDiv.textContent = "";
+
+      if (currentIndex >= questions.length) {
+        qInfo.textContent = "Ejercicio terminado";
+        checkBtn.disabled = true;
+        nextBtn.disabled = true;
+        const pct = totalPossible > 0 ? ((totalCorrect * 100) / totalPossible).toFixed(1) : "0.0";
+        summaryDiv.textContent = `Resultado final: ${totalCorrect} de ${totalPossible} (${pct} %)`;
+        return;
+      }
+
+      const q = questions[currentIndex];
+      currentShownCol = Math.floor(Math.random() * 4);
+
+      qInfo.textContent = `Pregunta ${currentIndex + 1} de ${questions.length}`;
+
+      [cellPresent, cellPastSimple, cellPastParticiple, cellTranslate].forEach(td => td.className = "");
+
+      cellPresent.textContent = currentShownCol === 0 ? q.present : "";
+      cellPastSimple.textContent = currentShownCol === 1 ? q.pastSimple : "";
+      cellPastParticiple.textContent = currentShownCol === 2 ? q.pastParticiple : "";
+      cellTranslate.textContent = currentShownCol === 3 ? q.translate : "";
+
+      if (currentShownCol === 0) cellPresent.classList.add("shown-cell");
+      if (currentShownCol === 1) cellPastSimple.classList.add("shown-cell");
+      if (currentShownCol === 2) cellPastParticiple.classList.add("shown-cell");
+      if (currentShownCol === 3) cellTranslate.classList.add("shown-cell");
+
+      inputPresentCell.innerHTML = "";
+      inputPastSimpleCell.innerHTML = "";
+      inputPastParticipleCell.innerHTML = "";
+      inputTranslateCell.innerHTML = "";
+
+      if (currentShownCol !== 0) {
+        inputPresent = createInput();
+        inputPresentCell.appendChild(inputPresent);
+      } else {
+        inputPresentCell.textContent = "(pista)";
+      }
+
+      if (currentShownCol !== 1) {
+        inputPastSimple = createInput();
+        inputPastSimpleCell.appendChild(inputPastSimple);
+      } else {
+        inputPastSimpleCell.textContent = "(pista)";
+      }
+
+      if (currentShownCol !== 2 && q.pastParticiple !== "—") {
+        inputPastParticiple = createInput();
+        inputPastParticipleCell.appendChild(inputPastParticiple);
+      } else if (q.pastParticiple === "—") {
+        inputPastParticipleCell.textContent = "(no aplica)";
+      } else {
+        inputPastParticipleCell.textContent = "(pista)";
+      }
+
+      if (currentShownCol !== 3) {
+        inputTranslate = createInput();
+        inputTranslateCell.appendChild(inputTranslate);
+      } else {
+        inputTranslateCell.textContent = "(pista)";
+      }
+
+      checkBtn.disabled = false;
+      nextBtn.disabled = true;
+    }
+
+    function checkCurrent() {
+      const q = questions[currentIndex];
+      let fb = "";
+      let correctRow = 0;
+      let possibleRow = 0;
+
+      const ansPresent = currentShownCol !== 0 ? (inputPresent.value || "").trim() : q.present;
+      const ansPastSimple = currentShownCol !== 1 ? (inputPastSimple.value || "").trim() : q.pastSimple;
+      const ansPastParticiple =
+        (currentShownCol !== 2 && q.pastParticiple !== "—") ? (inputPastParticiple.value || "").trim() : q.pastParticiple;
+      const ansTranslate = currentShownCol !== 3 ? (inputTranslate.value || "").trim() : q.translate;
+
+      fb += "<div class='feedback-line'><strong>Tus respuestas:</strong></div>";
+      fb += `<div class='feedback-line'>PRESENT: ${ansPresent || "<i>(vacío)</i>"}</div>`;
+      fb += `<div class='feedback-line'>PAST SIMPLE: ${ansPastSimple || "<i>(vacío)</i>"}</div>`;
+      fb += `<div class='feedback-line'>PAST PARTICIPLE: ${ansPastParticiple || "<i>(vacío)</i>"}</div>`;
+      fb += `<div class='feedback-line'>TRANSLATE: ${ansTranslate || "<i>(vacío)</i>"}</div>`;
+
+      fb += "<div class='feedback-line' style='margin-top:6px;'><strong>Solución correcta:</strong></div>";
+      fb += `<div class='feedback-line'>PRESENT: ${q.present}</div>`;
+      fb += `<div class='feedback-line'>PAST SIMPLE: ${q.pastSimple}</div>`;
+      fb += `<div class='feedback-line'>PAST PARTICIPLE: ${q.pastParticiple}</div>`;
+      fb += `<div class='feedback-line'>TRANSLATE: ${q.translate}</div>`;
+
+      if (currentShownCol !== 0) {
+        possibleRow++;
+        totalPossible++;
+        if (normalize(ansPresent) === normalize(q.present)) {
+          correctRow++;
+          totalCorrect++;
+          fb += `<div class='feedback-line ok'>✔ PRESENT correcto</div>`;
+        } else {
+          fb += `<div class='feedback-line bad'>✘ PRESENT incorrecto</div>`;
+        }
+      }
+
+      if (currentShownCol !== 1) {
+        possibleRow++;
+        totalPossible++;
+        if (normalize(ansPastSimple) === normalize(q.pastSimple)) {
+          correctRow++;
+          totalCorrect++;
+          fb += `<div class='feedback-line ok'>✔ PAST SIMPLE correcto</div>`;
+        } else {
+          fb += `<div class='feedback-line bad'>✘ PAST SIMPLE incorrecto</div>`;
+        }
+      }
+
+      if (currentShownCol !== 2 && q.pastParticiple !== "—") {
+        possibleRow++;
+        totalPossible++;
+        if (normalize(ansPastParticiple) === normalize(q.pastParticiple)) {
+          correctRow++;
+          totalCorrect++;
+          fb += `<div class='feedback-line ok'>✔ PAST PARTICIPLE correcto</div>`;
+        } else {
+          fb += `<div class='feedback-line bad'>✘ PAST PARTICIPLE incorrecto</div>`;
+        }
+      }
+
+      if (currentShownCol !== 3) {
+        possibleRow++;
+        totalPossible++;
+        if (isTranslationCorrect(ansTranslate, q.translate)) {
+          correctRow++;
+          totalCorrect++;
+          fb += `<div class='feedback-line ok'>✔ TRANSLATE correcto</div>`;
+        } else {
+          fb += `<div class='feedback-line bad'>✘ TRANSLATE incorrecto</div>`;
+        }
+      }
+
+      fb += `<div class='feedback-line' style='margin-top:4px;'><strong>Aciertos en esta fila:</strong> ${correctRow} de ${possibleRow}</div>`;
+
+      feedbackDiv.innerHTML = fb;
+
+      const pct = totalPossible > 0 ? ((totalCorrect * 100) / totalPossible).toFixed(1) : "0.0";
+      scoreInfo.textContent = `Puntuación: ${totalCorrect} / ${totalPossible} (${pct} %)`;
+
+      checkBtn.disabled = true;
+      nextBtn.disabled = false;
+    }
+
+    startBtn.addEventListener("click", startQuiz);
+    checkBtn.addEventListener("click", checkCurrent);
+    nextBtn.addEventListener("click", nextQuestion);
+  </script>
 </body>
 </html>
